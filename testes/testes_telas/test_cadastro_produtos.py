@@ -16,11 +16,10 @@ def setup_tela():
     with patch('tkinter.Tk') as mock_tk:  
         mock_tk_instance = MagicMock()
         mock_tk.return_value = mock_tk_instance
-        tela = TelaCadastroProduto(master=mock_tk_instance)
-        tela.grid = MagicMock()
-
-        # tela.cadastrar_produto = MagicMock()
-        return tela
+        with patch.object(TelaCadastroProduto, 'carregar_lojas', return_value=None) as mock_carregar_lojas:
+            tela = TelaCadastroProduto(master=mock_tk_instance)
+            tela.grid = MagicMock()  # Mock do método grid()
+            return tela
 
 @patch('principal.telas.tela_cadastro_produto.conectar_banco')
 @patch('principal.telas.tela_cadastro_produto.messagebox.showerror')  # Mockando a exibição de mensagens de erro
