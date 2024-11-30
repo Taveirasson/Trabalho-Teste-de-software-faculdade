@@ -1,31 +1,41 @@
-name: Run Tests
+# .github/workflows/build.yml
+name: Build and Analyze with SonarCloud
 
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
-    branches:
-      - master
+    types: [opened, synchronize, reopened]
 
 jobs:
-  test:
+  sonarcloud:
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout do repositório
       - name: Checkout do código
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Para garantir que o histórico completo seja recuperado
 
-      - name: Configurar Python
+      # 2. Configurar Python
+      - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.9'
 
-      - name: Instalar dependências
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      # 3. Instalar dependências
+      - name: Instalar tox e dependências
+        run: pip install tox
 
-      - name: Rodar testes com pytest
-        run: |
-          pytest --maxfail=1 --disable-warnings -q  # Para parar após o primeiro erro e desabilitar warnings
+      # 4. Executar tox para rodar os testes e gerar o relatório de cobertura
+      - name: Rodar Tox
+        run: tox -e py39
+
+      # 5. Rodar a análise do SonarCloud
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Defina seu token no GitHub Secrets
