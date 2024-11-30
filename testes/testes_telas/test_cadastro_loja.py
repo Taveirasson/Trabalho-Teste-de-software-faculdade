@@ -42,9 +42,9 @@ def test_cadastro_loja_correto(mock_showinfo, mock_conectar, setup_tela):
 
     mock_cursor.execute.assert_any_call("""\n            INSERT INTO Lojas (NOME_LOJA, NU_CNPJ, UF, TIPO_LOJA)\n            VALUES (?, ?, ?, ?)""",(tela.nome_loja.get(), tela.cnpj_loja.get(), tela.uf_loja.get(), tela.tipo_loja.get()))
 
-
+@patch('principal.telas.tela_cadastro_loja.conectar_banco')
 @patch('principal.telas.tela_cadastro_loja.messagebox.showerror')  
-def test_campos_incompletos(mock_showerror,  setup_tela):
+def test_campos_incompletos(mock_showerror,mock_conectar,  setup_tela):
     tela = setup_tela
 
     tela.nome_loja.get = MagicMock(return_value="")
