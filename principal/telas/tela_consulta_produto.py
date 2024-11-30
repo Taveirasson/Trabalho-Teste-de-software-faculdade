@@ -1,7 +1,8 @@
 #Se o python estiver dando problema colocar o caminho da sua pasta no path abaixo:
-# import sys
-# sys.path.append(r'D:/Documents/codigos/a3qualidade/definitiva')
-# sys.path.append(r'D:/Documents/codigos/a3qualidade/definitiva/principal')
+import sys, os
+caminho = os.getcwd()
+sys.path.append(os.path.join(caminho, 'principal'))
+sys.path.append(os.path.join(caminho))
 
 from datetime import datetime
 import tkinter as tk
