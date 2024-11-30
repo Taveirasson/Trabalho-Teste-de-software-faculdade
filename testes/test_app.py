@@ -1,6 +1,6 @@
 #Se o python estiver dando problema colocar o caminho da sua pasta no path abaixo:
-import sys
-sys.path.append(r'D:/Documents/codigos/a3qualidade/definitiva')
+# import sys
+# sys.path.append(r'D:/Documents/codigos/a3qualidade/definitiva')
 
 import pytest
 import tkinter as tk
