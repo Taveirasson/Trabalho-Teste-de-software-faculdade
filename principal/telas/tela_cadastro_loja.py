@@ -3,7 +3,7 @@ import sys, os
 caminho = os.getcwd()
 sys.path.append(os.path.join(caminho, 'principal'))
 sys.path.append(os.path.join(caminho))
-
+#linha teste
 from datetime import datetime
 import tkinter as tk
 from tkinter import ttk, messagebox
