@@ -21,7 +21,7 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.12.4'
 
       # 3. Instalar dependências
       - name: Instalar dependências
@@ -35,12 +35,12 @@ jobs:
           pip install pytest pytest-cov  # Instalar pytest e pytest-cov
           pytest --cov=principal --cov-report=xml:coverage-reports/coverage-.xml
 
-      # 5. Rodar a análise do SonarCloud
+   # 5. Rodar a análise do SonarCloud
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1
+        uses: SonarSource/sonarcloud-github-action@v2
         with:
-          sonar-project-key: Taveirasson_Trabalho-Teste-de-software-faculdade
-          sonar-organization: taveirasson
-          sonar-host-url: https://sonarcloud.io
-          sonar-login: ${{ secrets.SONAR_TOKEN }}
-          sonar-python.coverage.reportPaths: coverage-reports/coverage-*.xml  # Caminho para o relatório de cobertura
+          organization: taveirasson  # Nome da organização no SonarCloud
+          projectKey: Taveirasson_Trabalho-Teste-de-software-faculdade  # Chave do projeto no SonarCloud
+          projectName: Trabalho-Teste-de-software-faculdade  # Nome do projeto no SonarCloud
+          token: ${{ secrets.SONAR_TOKEN }}  # Token de autenticação (deve estar em GitHub Secrets)
+          coverage.reportPaths: coverage-reports/coverage-*.xml  # Caminho para o relatório de cobertura
