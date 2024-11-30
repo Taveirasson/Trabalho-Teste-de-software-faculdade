@@ -19,10 +19,12 @@ def setup_tela():
         tela = TelaCadastroProduto(master=mock_tk_instance)
         tela.grid = MagicMock()
 
+        # tela.cadastrar_produto = MagicMock()
         return tela
 
+@patch('principal.telas.tela_cadastro_produto.conectar_banco')
 @patch('principal.telas.tela_cadastro_produto.messagebox.showerror')  # Mockando a exibição de mensagens de erro
-def test_nome_produto_nao_preenchidos(mock_showerror, setup_tela):
+def test_nome_produto_nao_preenchidos(mock_showerror, mock_conectar, setup_tela):
     tela = setup_tela
 
     tela.nome.get = MagicMock(return_value="")  # Campo vazio
@@ -37,8 +39,9 @@ def test_nome_produto_nao_preenchidos(mock_showerror, setup_tela):
     # Verifica se a mensagem de erro é exibida
     mock_showerror.assert_called_with("Erro", "O nome do produto é obrigatório.")
 
+@patch('principal.telas.tela_cadastro_produto.conectar_banco')
 @patch('principal.telas.tela_cadastro_produto.messagebox.showerror')
-def test_valor_produto_invalido(mock_showerror, setup_tela):
+def test_valor_produto_invalido(mock_showerror, mock_conectar, setup_tela):
     tela = setup_tela
 
     tela.nome.get = MagicMock(return_value="Produto Teste")
