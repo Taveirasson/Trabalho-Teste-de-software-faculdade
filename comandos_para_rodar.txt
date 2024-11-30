@@ -1,0 +1,14 @@
+Testar arquivos unicos:
+
+pytest -vv caminho_arquivo.py
+
+
+pytest -vv testes/test_app.py
+
+
+Testar cobertura de código:
+
+pytest --cov=modulo_para_cobertura --cov-report=term-missing 
+
+
+pytest --cov=principal --cov-report=term-missing 
