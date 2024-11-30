@@ -17,11 +17,11 @@ def setup_tela():
         
         mock_style_instance = MagicMock()
         mock_style.return_value = mock_style_instance
-        
-        # Criando a instância da TelaConsultaProduto
-        tela = TelaConsultaProduto(master=mock_tk_instance)
-        
-        return tela
+        with patch.object(TelaConsultaProduto, 'carregar_produtos', return_value=None) as mock_carregar_lojas:
+
+            tela = TelaConsultaProduto(master=mock_tk_instance)
+            tela.grid = MagicMock()
+            return tela
 
 
 @patch('principal.telas.tela_consulta_produto.conectar_banco')  
