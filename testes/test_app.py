@@ -1,6 +1,6 @@
 #Se o python estiver dando problema colocar o caminho da sua pasta no path abaixo:
-import sys
-sys.path.append(r'D:/Documents/codigos/a3qualidade/definitiva')
+import sys, os
+# sys.path.append(r'D:/Documents/codigos/a3qualidade/definitiva')
 
 import pytest
 import tkinter as tk
@@ -10,6 +10,8 @@ from principal.app import SistemaApp
 from principal.telas.tela_cadastro_loja import TelaCadastroLoja
 from principal.telas.tela_cadastro_produto import TelaCadastroProduto
 from principal.telas.tela_consulta_produto import TelaConsultaProduto
+diretorio_base = os.path.dirname(os.path.abspath(__file__))  # Obtém o diretório do arquivo em execução
+sys.path.append(os.path.join(diretorio_base, '..'))
 
 @pytest.fixture
 def app():
