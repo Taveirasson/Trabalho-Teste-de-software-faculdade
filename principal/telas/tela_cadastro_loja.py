@@ -3,7 +3,7 @@ import sys, os
 caminho = os.getcwd()
 sys.path.append(os.path.join(caminho, 'principal'))
 sys.path.append(os.path.join(caminho))
-
+#linha teste
 from datetime import datetime
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -45,7 +45,7 @@ class TelaCadastroLoja(tk.Frame):
             tipo_loja = self.tipo_loja.get()
 
             # Verificar se todos os campos foram preenchidos
-            if not nome_loja or not cnpj_loja or not uf_loja or not tipo_loja:
+            if (not nome_loja or not cnpj_loja or not uf_loja or not tipo_loja):
                 messagebox.showerror("Erro", "Todos os campos devem ser preenchidos.")
                 return
 

@@ -13,39 +13,43 @@ nome_loja_para_teste = "Loja do lucas"
 
 @pytest.fixture
 def setup_tela():
-    root = tk.Tk()
-    tela = TelaCadastroProduto(master=root)
-    return tela
+    with patch('tkinter.Tk') as mock_tk:  
+        mock_tk_instance = MagicMock()
+        mock_tk.return_value = mock_tk_instance
+        with patch.object(TelaCadastroProduto, 'carregar_lojas', return_value=None) as mock_carregar_lojas:
+            tela = TelaCadastroProduto(master=mock_tk_instance)
+            tela.grid = MagicMock()  # Mock do método grid()
+            return tela
 
+@patch('principal.telas.tela_cadastro_produto.conectar_banco')
 @patch('principal.telas.tela_cadastro_produto.messagebox.showerror')  # Mockando a exibição de mensagens de erro
-def test_nome_produto_nao_preenchidos(mock_showerror, setup_tela):
+def test_nome_produto_nao_preenchidos(mock_showerror, mock_conectar, setup_tela):
     tela = setup_tela
 
-    # Simulando o clique no botão de cadastro
-    tela.nome.insert(0, "")  # Campo vazio
-    tela.valor.insert(0, "100")
+    tela.nome.get = MagicMock(return_value="")  # Campo vazio
+    tela.valor.get = MagicMock(return_value="100")
     tela.lojas_dict = {f"{nome_loja_para_teste}": {"id": 1}}
-    tela.loja_combobox.set(nome_loja_para_teste)
-    tela.qtd_estoque.insert(0, "10")
-    tela.categoria.insert(0, "Categoria Teste")
+    tela.loja_combobox.get = MagicMock(return_value=nome_loja_para_teste)
+    tela.qtd_estoque.get = MagicMock(return_value="10")
+    tela.categoria.get = MagicMock(return_value="Categoria Teste")
 
     tela.cadastrar_produto()
 
     # Verifica se a mensagem de erro é exibida
     mock_showerror.assert_called_with("Erro", "O nome do produto é obrigatório.")
 
+@patch('principal.telas.tela_cadastro_produto.conectar_banco')
 @patch('principal.telas.tela_cadastro_produto.messagebox.showerror')
-def test_valor_produto_invalido(mock_showerror, setup_tela):
+def test_valor_produto_invalido(mock_showerror, mock_conectar, setup_tela):
     tela = setup_tela
 
-    tela.nome.insert(0, "Produto Teste")
-    tela.valor.insert(0, "abc")  # Valor inválido
+    tela.nome.get = MagicMock(return_value="Produto Teste")
+    tela.valor.get = MagicMock(return_value="abc")  # Valor inválido
     tela.lojas_dict = {f"{nome_loja_para_teste}": {"id": 1}}
-    tela.loja_combobox.set(nome_loja_para_teste)
-    tela.qtd_estoque.insert(0, "10")
-    tela.categoria.insert(0, "Categoria Teste")
-    tela.cadastrar_produto()
-
+    tela.loja_combobox.get = MagicMock(return_value=nome_loja_para_teste)
+    tela.qtd_estoque.get = MagicMock(return_value="10")
+    tela.categoria.get = MagicMock(return_value="Categoria Teste")
+    tela.cadastrar_produto()  # Chamando o método de cadastro
     # Verifica se a mensagem de erro é exibida
     mock_showerror.assert_called_with("Erro", "O valor do produto deve ser um número válido.")
 
@@ -54,14 +58,13 @@ def test_valor_produto_invalido(mock_showerror, setup_tela):
 def test_loja_invalida(mock_showerror, mock_conectar, setup_tela):
     tela = setup_tela
 
-    tela.nome.insert(0, "Produto Teste")
-    tela.valor.insert(0, "200")  # Valor válido
+    tela.nome.get = MagicMock(return_value="Produto Teste")
+    tela.valor.get = MagicMock(return_value="200")  # Valor válido
     tela.lojas_dict = {f"{nome_loja_para_teste}": {"id": 1}}
-    tela.loja_combobox.set("Loja Errada")  # Loja inválida
-    tela.qtd_estoque.insert(0, "10")
-    tela.categoria.insert(0, "Categoria Teste")
-    tela.cadastrar_produto()
-
+    tela.loja_combobox.get = MagicMock(return_value="Loja Errada")  # Loja inválida
+    tela.qtd_estoque.get = MagicMock(return_value="10")
+    tela.categoria.get = MagicMock(return_value="Categoria Teste")
+    tela.cadastrar_produto()  
     # Verifica se a mensagem de erro é exibida
     mock_showerror.assert_called_with("Erro", "Selecione uma loja válida.")
 
@@ -70,12 +73,13 @@ def test_loja_invalida(mock_showerror, mock_conectar, setup_tela):
 def test_quantidade_invalida(mock_showerror, mock_conectar, setup_tela):
     tela = setup_tela
 
-    tela.nome.insert(0, "Produto Teste")
-    tela.valor.insert(0, "200")
+    tela.nome.get = MagicMock(return_value="Produto Teste")
+    tela.valor.get = MagicMock(return_value="200")
     tela.lojas_dict = {f"{nome_loja_para_teste}": {"id": 1}}
-    tela.loja_combobox.set(nome_loja_para_teste)
-    tela.qtd_estoque.insert(0, "10.0")  # Quantidade inválida (não inteiro)
-    tela.categoria.insert(0, "Categoria Teste")
+    tela.loja_combobox.get = MagicMock(return_value=nome_loja_para_teste)
+    tela.qtd_estoque.get = MagicMock(return_value="10.1")  # Quantidade inválida (não inteiro)
+    tela.categoria.get = MagicMock(return_value="Categoria Teste")
+
     tela.cadastrar_produto()
 
     # Verifica se a mensagem de erro é exibida
@@ -86,12 +90,13 @@ def test_quantidade_invalida(mock_showerror, mock_conectar, setup_tela):
 def test_categoria_invalida(mock_showerror, mock_conectar, setup_tela):
     tela = setup_tela
 
-    tela.nome.insert(0, "Produto Teste")
-    tela.valor.insert(0, "200")
+    tela.nome.get = MagicMock(return_value="Produto Teste")
+    tela.valor.get = MagicMock(return_value="200")
     tela.lojas_dict = {f"{nome_loja_para_teste}": {"id": 1}}
-    tela.loja_combobox.set(nome_loja_para_teste)
-    tela.qtd_estoque.insert(0, "10")
-    tela.categoria.insert(0, "")  # Campo de categoria vazio
+    tela.loja_combobox.get = MagicMock(return_value=nome_loja_para_teste)
+    tela.qtd_estoque.get = MagicMock(return_value="10")
+    tela.categoria.get = MagicMock(return_value="")
+
     tela.cadastrar_produto()
 
     # Verifica se a mensagem de erro é exibida
@@ -106,12 +111,12 @@ def test_cadastro_correto(mock_showinfo, mock_conectar, setup_tela):
 
     tela = setup_tela
 
-    tela.nome.insert(0, "Produto Teste")
-    tela.valor.insert(0, "200")  # Valor válido
+    tela.nome.get = MagicMock(return_value="Produto Teste")
+    tela.valor.get = MagicMock(return_value="200")  # Valor válido
     tela.lojas_dict = {f"{nome_loja_para_teste}": {"id": 1}}
-    tela.loja_combobox.set(nome_loja_para_teste)
-    tela.qtd_estoque.insert(0, "10")
-    tela.categoria.insert(0, "Categoria Teste")
+    tela.loja_combobox.get = MagicMock(return_value=nome_loja_para_teste)
+    tela.qtd_estoque.get = MagicMock(return_value="10")
+    tela.categoria.get = MagicMock(return_value="Categoria Teste")
     tela.cadastrar_produto()
 
     # Verifica se a mensagem de sucesso é exibida
