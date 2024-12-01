@@ -32,7 +32,7 @@ jobs:
           pip install pyodbc
       - name: Generate Reports
         run: |
-          export PYTHONPATH="$/principal" 
+          export PYTHONPATH="$/principal" && pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml
           echo "PYTHONPATH is set to: $PYTHONPATH"
           echo "CAMINHO : ${GITHUB_WORKSPACE}/principal"
 
