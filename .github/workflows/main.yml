@@ -42,4 +42,4 @@ jobs:
           args: >
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORG }}
-            -Dsonar.python.coverage.reportPaths=.github/workflows/coverage-reports/coverage.xml
+            -Dsonar.python.coverage.reportPaths=coverage-reports/*coverage*.xml
