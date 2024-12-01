@@ -30,6 +30,8 @@ jobs:
           pip install pytest
           pip install pytest-cov 
           pip install pyodbc
+      - name: pythonpath
+        run: export PYTHONPATH="${GITHUB_WORKSPACE}" && pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml
       - name: Run tox
         run: tox -e py
       - name: SonarCloud Scan
