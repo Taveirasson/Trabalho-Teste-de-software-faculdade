@@ -1,14 +1,15 @@
 #Se o python estiver dando problema colocar o caminho da sua pasta no path abaixo:
-import sys, os
-caminho = os.getcwd()
-sys.path.append(os.path.join(caminho, 'principal'))
-sys.path.append(os.path.join(caminho))
+# import sys, os
+# caminho = os.getcwd()
+# sys.path.append(os.path.join(caminho, 'principal'))
+# sys.path.append(os.path.join(caminho))
 #sopararodarostestes
 import tkinter as tk
 from principal.telas.tela_cadastro_loja import TelaCadastroLoja 
 from principal.telas.tela_cadastro_produto import TelaCadastroProduto
 from principal.telas.tela_consulta_produto import TelaConsultaProduto
 
+#testar so para ter push
 class SistemaApp(tk.Tk):
     def __init__(self):
         super().__init__()
