@@ -32,6 +32,9 @@ jobs:
           pip install pyodbc
       - name: Run tox
         run: tox -e py
+      - name: Fix code coverage paths
+        run: |
+          sed -i 's/\/home\/runner\/work\/Trabalho-Teste-de-software-faculdade\/Trabalho-Teste-de-software-faculdade\//\/github\/workspace\//g' principal/coverage-reports/coverage.xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
