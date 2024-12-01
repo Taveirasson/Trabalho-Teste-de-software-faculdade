@@ -31,7 +31,7 @@ jobs:
           pip install pytest-cov 
           pip install pyodbc
       - name: Generate Reports
-        run: export PYTHONPATH="${GITHUB_WORKSPACE}/principal && pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml 
+        run: export PYTHONPATH="${GITHUB_WORKSPACE}/principal" && pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml 
       - name: Run tox
         run: tox -e py
       - name: SonarCloud Scan
