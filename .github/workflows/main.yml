@@ -2,7 +2,8 @@ name: Build
 on:
   push:
     branches:
-      - main
+      - master
+      - minha-branch-de-teste
   pull_request:
     types: [opened, synchronize, reopened]
   workflow_dispatch: 
@@ -30,7 +31,7 @@ jobs:
           pip install pytest-cov 
           pip install pyodbc
       - name: Generate Reports
-        run: pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml 
+        run: export PYTHONPATH="${GITHUB_WORKSPACE}/principal && pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml 
       - name: Run tox
         run: tox -e py
       - name: SonarCloud Scan
