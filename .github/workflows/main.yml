@@ -30,13 +30,10 @@ jobs:
           pip install pytest
           pip install pytest-cov 
           pip install pyodbc
-      - name: Generate Reports
-        run: |
-          export PYTHONPATH="$/principal" && pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml
-          echo "PYTHONPATH is set to: $PYTHONPATH"
-          echo "CAMINHO : ${GITHUB_WORKSPACE}/principal"
-
-
+      - name: pythonpath
+        run: export PYTHONPATH="${GITHUB_WORKSPACE}/principal"
+      - name: pytest relatorio
+        run: pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml
       - name: Run tox
         run: tox -e py
       - name: SonarCloud Scan
