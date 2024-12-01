@@ -31,9 +31,10 @@ def test_retorno_correto(mock_conectar, setup_tela):
     tela = setup_tela
 
     # Mockando o método insert do Treeview para garantir que ele é chamado corretamente
-    with patch.object(tela.tree, 'insert') as mock_insert:
+    with patch.object(tela.tree, 'get_children', return_value=['item_1', 'item_2']), patch.object(tela.tree, 'insert') as mock_insert, patch.object(tela.tree, 'delete') as mock_delete:
         # Chamando o método que carrega os produtos
         tela.carregar_produtos()
+        mock_delete.assert_any_call('item_1') 
 
         # Verificando se o método insert foi chamado corretamente
         mock_insert.assert_any_call("", "end", values=(1, "Produto A", "Loja A", 100.00))
