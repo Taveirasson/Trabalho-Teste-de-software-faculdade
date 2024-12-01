@@ -31,15 +31,16 @@ jobs:
           pip install pytest-cov 
           pip install pyodbc
       - name: Generate Reports
-        run: export PYTHONPATH="${GITHUB_WORKSPACE}/principal"
+        run: export PYTHONPATH="${GITHUB_WORKSPACE}/principal" 
       - name: Run tox
         run: tox -e py
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_ORG: ${{ secrets.SONAR_ORG }}
         with:
           args: >
-            -Dsonar.projecKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORG }}
             -Dsonar.python.coverage.reportPaths=.github/workflows/coverage-reports/coverage.xml
