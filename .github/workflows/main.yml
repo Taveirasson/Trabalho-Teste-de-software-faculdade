@@ -29,8 +29,6 @@ jobs:
           pip install pytest
           pip install pytest-cov 
           pip install pyodbc
-      - name: List directory contents
-        run: ls -R coverage-reports/
       - name: Generate Reports
         run: pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml 
       - name: Run tox
