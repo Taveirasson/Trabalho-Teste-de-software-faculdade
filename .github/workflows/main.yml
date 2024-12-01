@@ -31,7 +31,7 @@ jobs:
           pip install pytest-cov 
           pip install pyodbc
       - name: pythonpath
-        run: export PYTHONPATH="${GITHUB_WORKSPACE}/principal"
+        run: export PYTHONPATH="${GITHUB_WORKSPACE}"
       - name: pytest relatorio
         run: pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml
       - name: Run tox
