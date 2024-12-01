@@ -32,7 +32,7 @@ jobs:
       - name: List directory contents
         run: ls -R coverage-reports/
       - name: Generate Reports
-        rum: pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml 
+        run: pytest --cov=principal --cov-report=xml:.github/workflows/coverage-reports/coverage.xml 
       - name: Run tox
         run: tox -e py
       - name: SonarCloud Scan
