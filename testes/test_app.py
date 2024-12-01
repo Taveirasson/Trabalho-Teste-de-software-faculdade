@@ -1,8 +1,8 @@
 #Se o python estiver dando problema colocar o caminho da sua pasta no path abaixo:
-import sys, os
-caminho = os.getcwd()
-sys.path.append(os.path.join(caminho, 'principal'))
-sys.path.append(os.path.join(caminho))
+# import sys, os
+# caminho = os.getcwd()
+# sys.path.append(os.path.join(caminho, 'principal'))
+# sys.path.append(os.path.join(caminho))
 
 import pytest
 import tkinter as tk
