@@ -46,3 +46,5 @@ jobs:
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORG }}
             -Dsonar.python.coverage.reportPaths=principal/coverage-reports/*coverage*.xml
+            -Dsonar.tests=testes
+            -Dsonar.test.inclusions=testes/**/*.py
