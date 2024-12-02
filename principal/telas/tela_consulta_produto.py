@@ -1,7 +1,7 @@
 from datetime import datetime
 import tkinter as tk
 from tkinter import ttk, messagebox
-from principal.config import conectar_banco
+from config import conectar_banco
 
 class TelaConsultaProduto(tk.Frame):
     def __init__(self, master=None):

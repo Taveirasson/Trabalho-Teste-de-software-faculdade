@@ -1,8 +1,8 @@
 
 import tkinter as tk
-from principal.telas.tela_cadastro_loja import TelaCadastroLoja 
-from principal.telas.tela_cadastro_produto import TelaCadastroProduto
-from principal.telas.tela_consulta_produto import TelaConsultaProduto
+from telas.tela_cadastro_loja import TelaCadastroLoja 
+from telas.tela_cadastro_produto import TelaCadastroProduto
+from telas.tela_consulta_produto import TelaConsultaProduto
 
 #testar so para ter push
 class SistemaApp(tk.Tk):

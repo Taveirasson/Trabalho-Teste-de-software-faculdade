@@ -21,3 +21,11 @@ def test_conectar_banco_sucesso(mock_connect):
         assert conn == mock_conn
     
     mock_conn.close.assert_called_once()
+
+
+def test_conectar_banco_credenciais_invalidas(mock_connect):
+    mock_connect.side_effect = Exception("Erro ao conectar ao banco de dados: credenciais inválidas")
+    with pytest.raises(Exception, match="Erro ao conectar ao banco de dados: credenciais inválidas"):
+        with conectar_banco() as conn:
+            # Não deve chegar aqui, pois a exceção será lançada
+            pass
