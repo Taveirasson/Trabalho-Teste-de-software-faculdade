@@ -1,6 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
 import tkinter as tk
+from tkinter import ttk
 from principal.telas.tela_cadastro_produto import TelaCadastroProduto
 
 nome_loja_para_teste = "Loja do lucas"
@@ -12,7 +13,9 @@ def setup_tela():
         mock_tk.return_value = mock_tk_instance
         with patch.object(TelaCadastroProduto, 'carregar_lojas', return_value=None) as mock_carregar_lojas:
             tela = TelaCadastroProduto(master=mock_tk_instance)
-            tela.grid = MagicMock()  # Mock do método grid()
+            tela.grid = MagicMock() 
+            # tela.loja_combobox = MagicMock(spec=ttk.Combobox)
+
             return tela
 
 @patch('principal.telas.tela_cadastro_produto.conectar_banco')
@@ -115,3 +118,24 @@ def test_cadastro_correto(mock_showinfo, mock_conectar, setup_tela):
 
     # Verifica se a mensagem de sucesso é exibida
     mock_showinfo.assert_called_with("Sucesso", "Produto cadastrado com sucesso!")
+
+# @patch('principal.telas.tela_cadastro_produto.conectar_banco')
+# def test_carregar_lojas(mock_conectar, setup_tela):
+#     # Simula o retorno do banco de dados
+#     mock_conn = mock_conectar.return_value.__enter__.return_value
+#     mock_cursor = mock_conn.cursor.return_value
+#     mock_cursor.execute.return_value.fetchall.return_value = [
+#         (1, "Loja A", "123456789", "PR", "Geral"),
+#         (2, "Loja B", "987654321", "SP", "Varejo"),
+#     ]
+
+#     # Setup da tela
+#     tela = setup_tela
+#     tela.carregar_lojas()  # Chama o método que vai carregar as lojas no combobox
+
+#     # Verifica se o combobox foi preenchido com as lojas
+#     assert tela.loja_combobox['values'] == ["Loja A", "Loja B"]  # Verifica se os valores no combobox estão corretos
+#     assert tela.lojas_dict == {
+#         "Loja A": 1,
+#         "Loja B": 2
+#     }  # Verifica se o dicionário de lojas está correto
