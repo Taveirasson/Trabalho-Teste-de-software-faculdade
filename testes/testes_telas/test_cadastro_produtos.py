@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 import tkinter as tk
 from tkinter import ttk
-from telas.tela_cadastro_produto import TelaCadastroProduto
+from principal.telas.tela_cadastro_produto import TelaCadastroProduto
 
 nome_loja_para_teste = "Loja do lucas"
 

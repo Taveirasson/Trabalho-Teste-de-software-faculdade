@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from config import conectar_banco
+from principal.config import conectar_banco
 
 @pytest.fixture
 def mock_connect():
