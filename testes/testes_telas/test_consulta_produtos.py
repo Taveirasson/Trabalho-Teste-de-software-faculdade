@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
 import tkinter as tk
-from principal.telas.tela_consulta_produto import TelaConsultaProduto
+from telas.tela_consulta_produto import TelaConsultaProduto
 
 @pytest.fixture
 def setup_tela():

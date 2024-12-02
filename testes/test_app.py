@@ -2,10 +2,10 @@ import pytest
 import tkinter as tk
 from unittest import mock
 from unittest.mock import patch, MagicMock
-from principal.app import SistemaApp  
-from principal.telas.tela_cadastro_loja import TelaCadastroLoja
-from principal.telas.tela_cadastro_produto import TelaCadastroProduto
-from principal.telas.tela_consulta_produto import TelaConsultaProduto
+from app import SistemaApp  
+from telas.tela_cadastro_loja import TelaCadastroLoja
+from telas.tela_cadastro_produto import TelaCadastroProduto
+from telas.tela_consulta_produto import TelaConsultaProduto
 
 #teste
 
