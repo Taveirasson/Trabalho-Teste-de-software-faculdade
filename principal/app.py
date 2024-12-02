@@ -30,7 +30,7 @@ class SistemaApp(tk.Tk):
         # Inicializando frames
         self.frames = {}
         self.criar_frames()
-
+#teste
         # Mostra a tela de consulta como padrão
         self.exibir_frame("TelaConsultaProduto")
 
